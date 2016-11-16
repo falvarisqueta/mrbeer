@@ -1,0 +1,46 @@
+<% unless notice.blank? %>
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= notice %></strong>
+  </div>
+<% end %>
+<% unless error.blank? %>
+  <div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= error %></strong>
+  </div>
+<% end %>
+
+<h1>Categories</h1>
+
+<table id="categories" class="datatable">
+  <thead>
+    <tr>
+      <th style="display:none;">Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td style="display:none;" class="id"><%= category.id %></td>
+        <td><%= category.name %></td>
+        <td><%= category.description %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<a href="<%= root_path %>" class="btn btn-default">Back</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('category_modal','<%= new_category_path %>')">New Category</button>
+<div id="category_modal" class="modal fade" role="dialog"></div>
+
+<script>
+$( document ).ready(function() {
+  formatTable('categories', 'category_modal', 'categories');
+});
+
+</script>

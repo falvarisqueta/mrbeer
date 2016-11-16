@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MR Beer</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div>
+    <% if current_user %>
+      Signed in as <strong><%= current_user %></strong>!
+      <%= link_to "Sign out", signout_path, id: "sign_out" %>
+      <%= yield %>
+    <% else %>
+      <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
+    <% end %>
+  </div>
+</body>
+
+<script>
+  function openDialog(container, url) {
+    $("#" + container).load(url).modal();
+  }
+
+  function formatTable(container, modal_container, model, buttons = '') {
+    var table = $("#" + container).DataTable({
+      "columnDefs": [ {
+            "targets": -1,
+            "data": null,
+            "defaultContent":
+              "<button type='button' class='edit btn btn-primary'>Edit</button>" +
+              "<button type='button' class='delete btn btn-primary'>Delete</button>" +
+              buttons
+        } ]
+    });
+
+    $("#" + container +" tbody").on('click', 'button.edit', function () {
+      var id = $(this).parents('tr').find('.id').text()
+      var url= '/' + model + '/' + id;
+      if(modal_container){
+        openDialog(modal_container, url)
+      } else {
+        window.location.href = url;
+      }
+    });
+
+    $("#" + container +" tbody").on('click', 'button.delete', function () {
+      var id = $(this).parents('tr').find('.id').text()
+      var url= '/' + model + '/' + id;
+      $.ajax({
+        url: url,
+        type: 'DELETE',
+        async: true
+      })
+
+      return false
+    });
+
+    return table;
+  }
+
+  function addTableButtonAction(container, button_class, modal_container, model, url) {
+    $("#" + container +" tbody").on('click', button_class, function () {
+      var id = $(this).parents('tr').find('.id').text()
+      openDialog(modal_container,'/' + model + '/' + id + '/' + url)
+    } );
+  }
+
+  function pushRangeSearch(lowerRangeControl, higherRangeControl, columnIndex) {
+    $.fn.dataTable.ext.search.push(function( settings, data, dataIndex) {
+        var min = $("#" + lowerRangeControl).val();
+        var max = $("#" + higherRangeControl).val();
+        var value = data[columnIndex];
+
+        if ((min === "" && max === "") ||
+             (min === "" && value <= max) ||
+             (min <= value && max === "") ||
+             (min <= value && value <= max))
+        {
+            return true;
+        }
+
+        return false;
+    });
+  }
+
+  function configureClientValidation() {
+    $(document).on('shown.bs.modal', function () {
+      $(ClientSideValidations.selectors.forms).validate();
+    });
+  }
+
+  $(document).ready(function() {
+    $('select').select2({dropdownAutoWidth : true});
+    $('.datetime').find('.select2-container').each(function() {
+      $(this).css('width', 'auto');
+    });
+    $('.modal-form').enableClientSideValidations();
+  });
+</script>
+</html>

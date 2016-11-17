@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :products
   resources :categories
   get 'sessions/create'
   get 'sessions/destroy'

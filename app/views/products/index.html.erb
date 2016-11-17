@@ -1,0 +1,54 @@
+<% unless notice.blank? %>
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= notice %></strong>
+  </div>
+<% end %>
+<% unless error.blank? %>
+  <div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= error %></strong>
+  </div>
+<% end %>
+
+<h1>Products</h1>
+
+<table id="products" class="datatable">
+  <thead>
+    <tr>
+      <th style="display:none;">Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Cost</th>
+      <th>Sell Price</th>
+      <th>Stock</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td style="display:none;" class="id"><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td><%= product.description %></td>
+        <td><%= product.category.name %></td>
+        <td><%= product.cost %></td>
+        <td><%= product.sell_price %></td>
+        <td><%= product.stock %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<a href="<%= root_path %>" class="btn btn-default">Back</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('product_modal','<%= new_product_path %>')">New Product</button>
+<div id="product_modal" class="modal fade" role="dialog"></div>
+
+<script>
+$( document ).ready(function() {
+  formatTable('products', 'product_modal', 'products');
+});
+
+</script>

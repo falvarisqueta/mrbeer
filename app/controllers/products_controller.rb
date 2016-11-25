@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :add_stock]
 
   # GET /products
   # GET /products.json
@@ -19,6 +19,9 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+  end
+
+  def add_stock
   end
 
   # POST /products
@@ -41,6 +44,10 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1.json
   def update
     respond_to do |format|
+      if product_params.key?("quantity")
+        @product.add_stock(product_params["quantity"])
+      end
+
       if @product.update(product_params)
         format.html { redirect_to products_url, notice: 'Product was successfully updated.' }
         format.json { head :no_content }
@@ -69,6 +76,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :description, :category_id, :cost, :sell_price, :stock)
+      params.require(:product).permit(:name, :description, :category_id, :cost, :sell_price, :stock, :quantity)
     end
 end

@@ -23,15 +23,17 @@
     $("#" + container).load(url).modal();
   }
 
-  function formatTable(container, modal_container, model, buttons = '') {
+  function formatTable(container, modal_container, model, buttons = '', default_buttons = true) {
+    var default_buttons = "<button type='button' class='edit btn btn-primary'>Edit</button>" +
+                          "<button type='button' class='delete btn btn-primary'>Delete</button>";
+
+    var tableButtons =  default_buttons ? buttons + default_buttons : buttons;
+
     var table = $("#" + container).DataTable({
       "columnDefs": [ {
             "targets": -1,
             "data": null,
-            "defaultContent":
-              "<button type='button' class='edit btn btn-primary'>Edit</button>" +
-              "<button type='button' class='delete btn btn-primary'>Delete</button>" +
-              buttons
+            "defaultContent": tableButtons
         } ]
     });
 

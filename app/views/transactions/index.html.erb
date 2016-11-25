@@ -11,31 +11,31 @@
   </div>
 <% end %>
 
-<h1>Products</h1>
+<h1>Transactions</h1>
 
-<table id="products" class="datatable">
+<table id="transactions" class="datatable">
   <thead>
     <tr>
       <th style="display:none;">Id</th>
-      <th>Name</th>
-      <th>Description</th>
+      <th>Product Name</th>
       <th>Category</th>
-      <th>Cost</th>
-      <th>Sell Price</th>
-      <th>Stock</th>
+      <th>Unit Charge</th>
+      <th>Quantity</th>
+      <th>Charge</th>
+      <th>Description</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <% @products.each do |product| %>
+    <% @transactions.each do |transaction| %>
       <tr>
-        <td style="display:none;" class="id"><%= product.id %></td>
-        <td><%= product.name %></td>
-        <td><%= product.description %></td>
-        <td><%= product.category.name %></td>
-        <td><%= product.cost %></td>
-        <td><%= product.sell_price %></td>
-        <td><%= product.stock %></td>
+        <td style="display:none;" class="id"><%= transaction.id %></td>
+        <td><%= transaction.product.name %></td>
+        <td><%= transaction.product.category.name %></td>
+        <td><%= transaction.unit_charge%></td>
+        <td><%= transaction.quantity %></td>
+        <td><%= transaction.total_charge %></td>
+        <td><%= transaction.description %></td>
         <td></td>
       </tr>
     <% end %>
@@ -48,9 +48,7 @@
 
 <script>
 $( document ).ready(function() {
-  var buttons = "<button type='button' class='add_stock btn btn-primary'>Add Stock</button>"
-  formatTable('products', 'product_modal', 'products', buttons);
-  addTableButtonAction('products','button.add_stock','product_modal','products','add_stock')
+  formatTable('products', 'product_modal', 'products');
 });
 
 </script>

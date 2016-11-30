@@ -1,4 +1,4 @@
-<%= form_for @product, validate: true, html: {role: "form", class:"modal-form"} do |f| %>
+<%= form_for @product, url: {action: "stock_product"}, method: :post, validate: true, html: {role: "form", class:"modal-form"} do |f| %>
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">

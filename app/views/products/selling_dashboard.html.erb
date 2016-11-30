@@ -20,9 +20,7 @@
       <th>Name</th>
       <th>Description</th>
       <th>Category</th>
-      <th>Cost</th>
-      <th>Sell Price</th>
-      <th>Stock</th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -33,9 +31,11 @@
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.category.name %></td>
-        <td><%= product.cost %></td>
-        <td><%= product.sell_price %></td>
-        <td><%= product.stock %></td>
+        <td>
+          <%= link_to "Sell 1/2", sell_product_path(id: product.id , quantity: 0.5), method: :post, class: "btn btn-primary" if product.beer?%>
+          <%= link_to "Sell 1", sell_product_path(id: product.id , quantity: 1), method: :post, class: "btn btn-primary" %>
+          <%= link_to "Sell 2", sell_product_path(id: product.id , quantity: 2), method: :post, class: "btn btn-primary" if product.beer?%>
+        </td>
         <td></td>
       </tr>
     <% end %>
@@ -43,12 +43,10 @@
 </table>
 <br>
 <a href="<%= root_path %>" class="btn btn-default">Back</a>
-<button type="button" class="btn btn-primary" onclick="openDialog('product_modal','<%= new_product_path %>')">New Product</button>
-<div id="product_modal" class="modal fade" role="dialog"></div>
 
 <script>
 $( document ).ready(function() {
-  formatTable('products', 'product_modal', 'products');
+  formatTable('products', 'product_modal', 'products', '', false);
 });
 
 </script>

@@ -27,7 +27,7 @@
     var default_buttons = "<button type='button' class='edit btn btn-primary'>Edit</button>" +
                           "<button type='button' class='delete btn btn-primary'>Delete</button>";
 
-    var tableButtons =  default_buttons ? buttons + default_buttons : buttons;
+    var tableButtons =  default_buttons == true ? buttons + default_buttons : buttons;
 
     var table = $("#" + container).DataTable({
       "columnDefs": [ {

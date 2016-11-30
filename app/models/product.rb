@@ -11,7 +11,7 @@ class Product < ActiveRecord::Base
           }
 
   def add_stock(quantity)
-    next_stock = stock.nil? ? quantity.to_f : stock + quantity.to_f
+    next_stock = stock.nil? ? quantity : stock + quantity
     update_attribute(:stock, next_stock)
     Transaction.create(
       product_id: id,
@@ -21,12 +21,17 @@ class Product < ActiveRecord::Base
   end
 
   def sell(quantity)
-    update_attribute!(:stock, stock - quantity)
+    next_stock = stock - quantity
+    update_attribute(:stock, next_stock)
     Transaction.create(
       product_id: id,
       quantity: quantity * -1,
       unit_charge: sell_price,
     )
+  end
+
+  def beer?
+    category.name.upcase == 'CERVEZA'
   end
 
 end

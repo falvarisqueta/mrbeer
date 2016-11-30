@@ -1,18 +1,15 @@
 Rails.application.routes.draw do
 
+  resources :products do
+    get :selling_dashboard, on: :collection
+    get :add_stock, on: :member
+    post :stock_product, on: :member
+    post :sell, on: :member
+  end
+
   resources :transactions
   resources :products
   resources :categories
-
-  resources :products do
-    get :add_stock, on: :member
-  end
-
-  resources :products do
-    collection do
-      get :selling_dashboard
-    end
-  end
 
   get 'sessions/create'
   get 'sessions/destroy'

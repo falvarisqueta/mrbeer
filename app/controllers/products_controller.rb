@@ -1,9 +1,13 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :add_stock]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :add_stock, :stock_product, :sell]
 
   # GET /products
   # GET /products.json
   def index
+    @products = Product.all
+  end
+
+  def selling_dashboard
     @products = Product.all
   end
 
@@ -22,6 +26,30 @@ class ProductsController < ApplicationController
   end
 
   def add_stock
+  end
+
+  def sell
+    respond_to do |format|
+      if @product.sell(params["quantity"].to_f)
+        format.html { redirect_to selling_dashboard_products_path, notice: 'Product was successfully sold.' }
+        format.json { head :no_content }
+      else
+        format.html { render :new }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def stock_product
+    respond_to do |format|
+      if @product.add_stock(product_params["quantity"].to_f)
+        format.html { redirect_to products_url, notice: 'Product was successfully stocked.' }
+        format.json { head :no_content }
+      else
+        format.html { render :new }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /products
@@ -44,10 +72,6 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1.json
   def update
     respond_to do |format|
-      if product_params.key?("quantity")
-        @product.add_stock(product_params["quantity"])
-      end
-
       if @product.update(product_params)
         format.html { redirect_to products_url, notice: 'Product was successfully updated.' }
         format.json { head :no_content }

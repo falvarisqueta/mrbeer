@@ -43,12 +43,11 @@
 </table>
 <br>
 <a href="<%= root_path %>" class="btn btn-default">Back</a>
-<button type="button" class="btn btn-primary" onclick="openDialog('product_modal','<%= new_product_path %>')">New Product</button>
-<div id="product_modal" class="modal fade" role="dialog"></div>
+<div id="transaction_modal" class="modal fade" role="dialog"></div>
 
 <script>
 $( document ).ready(function() {
-  formatTable('products', 'product_modal', 'products');
+  formatTable('transactions', 'transactions_modal', 'transactions', '', false);
 });
 
 </script>

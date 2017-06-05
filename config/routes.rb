@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :providers
   resources :products do
     get :selling_dashboard, on: :collection
     get :add_stock, on: :member
+    get :sell_quantity, on: :member
     post :stock_product, on: :member
     post :sell, on: :member
   end

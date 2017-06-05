@@ -1,0 +1,50 @@
+<% unless notice.blank? %>
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= notice %></strong>
+  </div>
+<% end %>
+<% unless error.blank? %>
+  <div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= error %></strong>
+  </div>
+<% end %>
+
+<h1>Providers</h1>
+
+<table id="providers" class="datatable">
+  <thead>
+    <tr>
+      <th style="display:none;">Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Contact</th>
+      <th>Phone</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @providers.each do |provider| %>
+      <tr>
+        <td style="display:none;" class="id"><%= provider.id %></td>
+        <td><%= provider.name %></td>
+        <td><%= provider.description %></td>
+        <td><%= provider.contact %></td>
+        <td><%= provider.phone_number %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<a href="<%= root_path %>" class="btn btn-default">Back</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('provider_modal','<%= new_provider_path %>')">New Provider</button>
+<div id="provider_modal" class="modal fade" role="dialog"></div>
+
+<script>
+$( document ).ready(function() {
+  formatTable('providers', 'provider_modal', 'providers');
+});
+
+</script>

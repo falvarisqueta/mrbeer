@@ -2,8 +2,9 @@ class Product < ActiveRecord::Base
   attr_accessor :quantity
 
   belongs_to :category
+  belongs_to :provider
 
-  validates :name, :description, :category_id, presence: true
+  validates :name, :description, :category_id, :provider_id, presence: true
 
   validates :cost, :sell_price,
           numericality: {

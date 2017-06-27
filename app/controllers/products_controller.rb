@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :add_stock, :stock_product, :sell]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :add_stock, :stock_product, :sell, :sell_quantity]
 
   # GET /products
   # GET /products.json
@@ -28,10 +28,14 @@ class ProductsController < ApplicationController
   def add_stock
   end
 
+  def sell_quantity
+  end
+
   def sell
     respond_to do |format|
-      if @product.sell(params["quantity"].to_f)
-        format.html { redirect_to selling_dashboard_products_path, notice: 'Product was successfully sold.' }
+      quantity = params[:quantity].nil? ? params[:product][:quantity].to_f : params[:quantity].to_f
+      if @product.sell(quantity)
+        format.html { redirect_to selling_dashboard_products_path, notice: "#{quantity.to_f} items of #{@product.name} Product was successfully sold." }
         format.json { head :no_content }
       else
         format.html { render :new }

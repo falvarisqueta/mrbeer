@@ -20,6 +20,7 @@
       <th>Name</th>
       <th>Description</th>
       <th>Category</th>
+      <th>Stock</th>
       <th></th>
       <th></th>
     </tr>
@@ -31,10 +32,15 @@
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.category.name %></td>
+        <td><%= product.stock %></td>
         <td>
-          <%= link_to "Sell 1/2", sell_product_path(id: product.id , quantity: 0.5), method: :post, class: "btn btn-primary" if product.beer?%>
-          <%= link_to "Sell 1", sell_product_path(id: product.id , quantity: 1), method: :post, class: "btn btn-primary" %>
-          <%= link_to "Sell 2", sell_product_path(id: product.id , quantity: 2), method: :post, class: "btn btn-primary" if product.beer?%>
+          <% if product.beer? %>
+            <%= link_to "Porron", sell_product_path(id: product.id , quantity: 0.5), method: :post, class: "btn btn-primary"%>
+            <%= link_to "Litro", sell_product_path(id: product.id , quantity: 1), method: :post, class: "btn btn-primary" %>
+            <%= link_to "Botellon", sell_product_path(id: product.id , quantity: 2), method: :post, class: "btn btn-primary"%>
+          <% else %>
+            <button type="button" class="btn btn-primary" onclick="openDialog('sell_modal','<%= sell_quantity_product_path(product.id) %>')">Vender</button>
+          <% end %>
         </td>
         <td></td>
       </tr>
@@ -43,10 +49,11 @@
 </table>
 <br>
 <a href="<%= root_path %>" class="btn btn-default">Back</a>
+<div id="sell_modal" class="modal fade" role="dialog"></div>
 
 <script>
 $( document ).ready(function() {
-  formatTable('products', 'product_modal', 'products', '', false);
+  formatTable('products', 'sell_modal', 'products', '', false);
 });
 
 </script>

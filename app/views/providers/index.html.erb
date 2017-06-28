@@ -28,7 +28,7 @@
     <% @providers.each do |provider| %>
       <tr>
         <td style="display:none;" class="id"><%= provider.id %></td>
-        <td><%= provider.name %></td>
+        <td><a onclick="openDialog('provider_modal','<%= provider_path(provider.id) %>')"> <%= provider.name %></a></td>
         <td><%= provider.description %></td>
         <td><%= provider.contact %></td>
         <td><%= provider.phone_number %></td>

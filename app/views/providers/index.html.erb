@@ -11,16 +11,16 @@
   </div>
 <% end %>
 
-<h1>Providers</h1>
+<h1>Proveedores</h1>
 
 <table id="providers" class="datatable">
   <thead>
     <tr>
       <th style="display:none;">Id</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Contact</th>
-      <th>Phone</th>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th>Contacto</th>
+      <th>Telefono</th>
       <th></th>
     </tr>
   </thead>
@@ -38,8 +38,8 @@
   </tbody>
 </table>
 <br>
-<a href="<%= root_path %>" class="btn btn-default">Back</a>
-<button type="button" class="btn btn-primary" onclick="openDialog('provider_modal','<%= new_provider_path %>')">New Provider</button>
+<a href="<%= root_path %>" class="btn btn-default">Menu Principal</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('provider_modal','<%= new_provider_path %>')">Nuevo Proveedor</button>
 <div id="provider_modal" class="modal fade" role="dialog"></div>
 
 <script>

@@ -11,14 +11,14 @@
   </div>
 <% end %>
 
-<h1>Categories</h1>
+<h1>Categorias</h1>
 
 <table id="categories" class="datatable">
   <thead>
     <tr>
       <th style="display:none;">Id</th>
-      <th>Name</th>
-      <th>Description</th>
+      <th>Nombre</th>
+      <th>Descripcion</th>
       <th></th>
     </tr>
   </thead>
@@ -34,8 +34,8 @@
   </tbody>
 </table>
 <br>
-<a href="<%= root_path %>" class="btn btn-default">Back</a>
-<button type="button" class="btn btn-primary" onclick="openDialog('category_modal','<%= new_category_path %>')">New Category</button>
+<a href="<%= root_path %>" class="btn btn-default">Menu Principal</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('category_modal','<%= new_category_path %>')">Nueva Categoria</button>
 <div id="category_modal" class="modal fade" role="dialog"></div>
 
 <script>

@@ -11,18 +11,17 @@
   </div>
 <% end %>
 
-<h1>Products</h1>
+<h1>Productos</h1>
 
 <table id="products" class="datatable">
   <thead>
     <tr>
       <th style="display:none;">Id</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Provider</th>
-      <th>Category</th>
-      <th>Cost</th>
-      <th>Sell Price</th>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th>Proveedor</th>
+      <th>Categoria</th>
+      <th>Precio Venta</th>
       <th>Stock</th>
       <th></th>
     </tr>
@@ -35,7 +34,6 @@
         <td><%= product.description %></td>
         <td><%= product.provider.name %></td>
         <td><%= product.category.name %></td>
-        <td><%= product.cost %></td>
         <td><%= product.sell_price %></td>
         <td><%= product.stock %></td>
         <td></td>
@@ -44,8 +42,8 @@
   </tbody>
 </table>
 <br>
-<a href="<%= root_path %>" class="btn btn-default">Back</a>
-<button type="button" class="btn btn-primary" onclick="openDialog('product_modal','<%= new_product_path %>')">New Product</button>
+<a href="<%= root_path %>" class="btn btn-default">Menu Principal</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('product_modal','<%= new_product_path %>')">Nuevo Producto</button>
 <div id="product_modal" class="modal fade" role="dialog"></div>
 
 <script>
